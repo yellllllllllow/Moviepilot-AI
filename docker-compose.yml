@@ -1,14 +1,13 @@
 version: '3.8'
 
 services:
-  moviepilot:
+  moviepilot-ai:
     build:
-      context: ./backend
-      dockerfile: docker/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: moviepilot-ai
     ports:
       - "3000:3000"   # 前端 Nginx
-      - "3001:3001"   # 后端 API
     volumes:
       - ./config:/config
       - ./data:/data
@@ -19,4 +18,8 @@ services:
       - API_TOKEN=moviepilot
       - NGINX_PORT=3000
       - PORT=3001
+      - PROXY_HOST=
+      - GITHUB_TOKEN=
+      - CN_UPDATE=true
+      - AUTO_UPDATE=false
     restart: unless-stopped
