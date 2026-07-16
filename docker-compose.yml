@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  moviepilot:
+    build:
+      context: ./backend
+      dockerfile: docker/Dockerfile
+    container_name: moviepilot-ai
+    ports:
+      - "3000:3000"   # 前端 Nginx
+      - "3001:3001"   # 后端 API
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    environment:
+      - TZ=Asia/Shanghai
+      - SUPERUSER=admin
+      - SUPERUSER_PASSWORD=admin123
+      - API_TOKEN=moviepilot
+      - NGINX_PORT=3000
+      - PORT=3001
+    restart: unless-stopped
